@@ -12,7 +12,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         try{
-            const res = await axios.post('http://localhost:8000/api/login',{email, password});
+            const res = await axios.post('https://video-share-app-8t5p.onrender.com/api/login',{email, password});
             const data = res.data;
             if(data.success){
                 toast.success(data.message);

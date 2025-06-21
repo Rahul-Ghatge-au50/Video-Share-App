@@ -9,7 +9,7 @@ function Dashboard() {
     
     useEffect(() => {
         const fetchVideos = async () => {
-            const res = await axios.get('http://localhost:8000/api/getVideo',{
+            const res = await axios.get('https://video-share-app-8t5p.onrender.com/api/getVideo',{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             setVideo(res.data.data);

@@ -13,7 +13,7 @@ function Register() {
 
     const handleSubmit = async () => {
         try{
-            const res = await axios.post('http://localhost:8000/api/register',{username,email,password});
+            const res = await axios.post('https://video-share-app-8t5p.onrender.com/api/register',{username,email,password});
             const data = res.data;
             if(data.success){
                 toast.success(data.message);

@@ -27,7 +27,7 @@ function UploadVideo() {
             data.append('description', formData.description);
             data.append('video', formData.video);
 
-            const res = await axios.post('http://localhost:8000/api/upload',data,{
+            const res = await axios.post('https://video-share-app-8t5p.onrender.com/api/upload',data,{
                 headers:{
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type':'multipart/form-data'
