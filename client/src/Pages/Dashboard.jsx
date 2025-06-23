@@ -31,7 +31,7 @@ function Dashboard() {
                 video.map((item, index) => (
                     <div key={index} className='border rounded p-2 shadow' onClick={() => openModel(item)} >
                         <video controls className='w-full h-48 object-cover'>
-                            <source src={`http://localhost:8000/${item.filePath}`} type='video/mp4'/>
+                            <source src={item.filePath} type='video/mp4'/>
                         </video>
                         <div className='flex justify-between' >
                             <h2 className='font-semibold mt-2'>Title : {item.title}</h2>
@@ -47,16 +47,16 @@ function Dashboard() {
             {/* Model for full Screen */}
             {
                 selectedVideo && (
-                    <div className='fixed inset-0 z-50 bg-black bg-opacity-80 flex items-enter justify-center' >
+                    <div className='fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center' >
                         <div className='relative w-full h-full' >
                             <button
                                 onClick={closeModel}
-                                className='absolute top-4 right04 text-white text-3xl font-bold z-50'
+                                className='absolute top-4 right-4 text-white text-3xl font-bold z-50'
                             >
                                 &times;
                             </button>
                             <video controls className='w-full h-full object-contain'>
-                                <source src={`http://localhost:8000/${selectedVideo.filePath}`} type="video/mp4" />
+                                <source src={selectedVideo.filePath} type="video/mp4" />
                             </video>
                         </div>
                     </div>
