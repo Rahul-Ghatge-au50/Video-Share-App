@@ -25,12 +25,12 @@ connectDB();
 
 
 //MIDDLEWARE
-// app.use(cors());
+app.use(cors());
 
-app.use(cors({
-  origin: ['http://localhost:8000', 'https://video-share-app-1.onrender.com'], // update as per your domain
-  credentials: true
-}));
+// app.use(cors({
+//   origin: ['http://localhost:8000', 'https://video-share-app-1.onrender.com'], // update as per your domain
+//   credentials: true
+// }));
 
 app.use(express.json());
 
