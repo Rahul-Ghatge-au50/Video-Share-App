@@ -26,8 +26,8 @@ connectDB();
 
 //MIDDLEWARE
 app.use(cors());
+
 app.use(express.json());
-app.use('/videos', express.static(path.join(__dirname, "/videos")));
 
 app.use('/api', userRoutes);
 app.use('/api', videoRoutes);

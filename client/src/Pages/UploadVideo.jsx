@@ -19,30 +19,26 @@ function UploadVideo() {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
         try{
-            console.log('111::: ', 111);
             setLoading(true);
             const data = new FormData();
             data.append('title', formData.title);
             data.append('description', formData.description);
             data.append('video', formData.video);
-            console.log('222::: ', 222);
-            console.log('Video file name:', formData.video?.name);
             const res = await axios.post('https://video-share-app-8t5p.onrender.com/api/upload',data,{
                 headers:{
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type':'multipart/form-data'
                 }
             });
-            console.log('res::: ', res);
             if(res.data.success){
                 toast.success(res.data.message);
                 setFormData({title:'', description:'', video:null});
                 setFileName('');
                 setLoading(false);
             };
-            setLoading(false);
         }catch(error){
             setLoading(false);
             toast.error(error.response.data.message);
@@ -54,7 +50,7 @@ function UploadVideo() {
     <>
         <Navbar/>
         <div className='flex justify-center items-center h-screen' >
-            <form action={handleSubmit} className='bg-white p-8 rounded shadow-md w-96 space-y-4' >
+            <form onSubmit={handleSubmit} className='bg-white p-8 rounded shadow-md w-96 space-y-4' >
                 <h2 className='text-xl font-semibold' >Upload Video</h2>
 
                 <label htmlFor="title">Title</label>
@@ -69,13 +65,9 @@ function UploadVideo() {
                 </label>
                 <input type="file" hidden name='video' id='video' accept='video/*' onChange={handleChange} className='w-full'/>
                 
-                <button type='submit' className='bg-purple-500 text-white px-4 py-2 w-full cursor-pointer rounded-md' >{loading ? 'Uploading...' : 'Upload'}</button>
+                <button disabled={loading} type='submit' className={`bg-purple-500 text-white px-4 py-2 w-full cursor-pointer rounded-md 
+                    transition ${loading ? 'opacity-50 ':'hover:bg-purple-600'}`} >{loading ? 'Uploading...' : 'Upload'}</button>
 
-                {
-                    loading && (
-                        <div className='text-center text-gray-500 text-sm' >Please wait, uploading...</div>
-                    )
-                }
             </form>
         </div>
     </>
