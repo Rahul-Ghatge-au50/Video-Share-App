@@ -2,6 +2,7 @@ const Video = require("../Models/Video");
 
 const uploadVideo = async (req, res) => {
     try{
+        console.log('111::: ', 111);
         const {title, description} = req.body;
         const filePath = req.file.path;
         const newVideo = new Video({
