@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../Component/Navbar';
+import { RiDeleteBin6Line } from "react-icons/ri";
+import toast from 'react-hot-toast';
+
 
 function Dashboard() {
 
@@ -13,10 +16,27 @@ function Dashboard() {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             setVideo(res.data.data);
+            console.log('res.data.data::: ', res.data.data);
         };  
 
         fetchVideos();
     },[])
+
+    const handleDelete = async (id) => {
+        try{
+            const res = await axios.delete(`https://video-share-app-8t5p.onrender.com/api/delete/${id}`,{
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            });
+            console.log('res::: ', res);
+            if(res.data.success){
+                toast.success(res.data.message);
+            }
+        }catch(error){
+            toast.error(error.response.data.message);
+            console.error("Error while upload video ",error.message);
+        }
+    }
+
 
     const openModel = video => setSelectedVideo(video);
     const closeModel = () => setSelectedVideo(null);
@@ -29,13 +49,16 @@ function Dashboard() {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' >
             {
                 video.map((item, index) => (
-                    <div key={index} className='border rounded p-2 shadow' onClick={() => openModel(item)} >
+                    <div key={index} className='border rounded p-2 shadow' onClick={(e) => {e.stopPropagation();openModel(item)}} >
                         <video controls className='w-full h-48 object-cover'>
                             <source src={item.filePath} type='video/mp4'/>
                         </video>
                         <div className='flex justify-between' >
-                            <h2 className='font-semibold mt-2'>Title : {item.title}</h2>
-                            <h2 className='font-semibold mt-2'>User : {item.uploader.username}</h2>
+                            <div>
+                                <h2 className='font-semibold '>Title : {item.title}</h2>
+                                <h2 className='font-semibold '>User : {item.uploader.username}</h2>
+                            </div>
+                            <RiDeleteBin6Line className='text-2xl text-red-500 cursor-pointer' onClick={(e) => {e.stopPropagation(); handleDelete(item._id)}} />
                         </div>
                         <h4>Desc</h4>
                         <p className='text-sm text-gray-600 max-h-20 overflow-y-auto' >{item.description}</p>
