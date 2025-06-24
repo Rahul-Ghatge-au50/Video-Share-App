@@ -11,25 +11,24 @@ function Dashboard() {
     const [selectedVideo, setSelectedVideo] = useState(null);
     
     useEffect(() => {
-        const fetchVideos = async () => {
-            const res = await axios.get('https://video-share-app-8t5p.onrender.com/api/getVideo',{
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-            });
-            setVideo(res.data.data);
-            console.log('res.data.data::: ', res.data.data);
-        };  
-
         fetchVideos();
-    },[])
+    },[]);
+
+    const fetchVideos = async () => {
+        const res = await axios.get('https://video-share-app-8t5p.onrender.com/api/getVideo',{
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        setVideo(res.data.data);
+    };  
 
     const handleDelete = async (id) => {
         try{
             const res = await axios.delete(`https://video-share-app-8t5p.onrender.com/api/delete/${id}`,{
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
-            console.log('res::: ', res);
             if(res.data.success){
                 toast.success(res.data.message);
+                fetchVideos();
             }
         }catch(error){
             toast.error(error.response.data.message);
