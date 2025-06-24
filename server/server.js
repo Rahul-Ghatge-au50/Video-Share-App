@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const path = require('path');
 const app = express();
 const userRoutes = require('./Routes/userRoute');
 const videoRoutes = require('./Routes/videoRoute');
@@ -26,12 +25,6 @@ connectDB();
 
 //MIDDLEWARE
 app.use(cors());
-
-// app.use(cors({
-//   origin: ['http://localhost:8000', 'https://video-share-app-1.onrender.com'], // update as per your domain
-//   credentials: true
-// }));
-
 app.use(express.json());
 
 app.use('/api', userRoutes);

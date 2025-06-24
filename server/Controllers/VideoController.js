@@ -38,6 +38,24 @@ const getVideos = async (req, res) => {
             message: 'Internal server error' 
         });
     }
-}
+};
 
-module.exports = { uploadVideo , getVideos }
+const deleteVideo = async (req, res) => {
+    try{
+        await Video.findByIdAndDelete({_id:req.params.id})
+
+        return res.status(200).json({
+            success:true,
+            message:"Video deleted successfully"
+        })
+    }catch(error){
+        console.error('Error in get videos', error.message);
+        return res.status(500).json({ 
+            success: false,
+            message: 'Internal server error' 
+        });
+    }
+};
+
+
+module.exports = { uploadVideo , getVideos, deleteVideo }
