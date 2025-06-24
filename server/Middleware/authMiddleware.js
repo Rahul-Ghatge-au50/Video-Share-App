@@ -32,7 +32,7 @@ const authMiddleware = async (req, res, next) => {
 
 
 const isAdmin = (req, res, next) => {
-    if (!req.user || req.user.isAdmin !== 'admin') {
+    if (!req.user || req.user.isAdmin !== true) {
         return res.status(403).json({ 
             success: false,
             message: 'Access denied. Admin only.' 
