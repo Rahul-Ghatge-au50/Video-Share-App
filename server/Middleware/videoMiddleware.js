@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
     params:{
         folder:'vide0share-app',
         resource_type:'video',
-        allowed__formats:['mp4', 'mov', 'avi']
+        allowed_formats:['mp4', 'mov', 'avi']
     }
 })
 
